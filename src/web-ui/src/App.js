@@ -12,6 +12,8 @@ import Header from "./components/Header";
 import SettingsHelp from "./components/SettingsHelp";
 import ConsentModal from "./components/ConsentModal";
 
+import ImageWheel from "./components/imageWheel"
+
 const App = () => {
   const [authState, setAuthState] = useState(undefined);
   const [readyToStream, setReadyToStream] = useState(false);
@@ -23,11 +25,14 @@ const App = () => {
 
   const getSnapshot = () => {
     const image = webcam.current.getScreenshot();
+    alert("Got screen shot!!!"+image)
     const b64Encoded = image.split(",")[1];
+    alert("image size" + b64Encoded)
 
     gateway.processImage(b64Encoded).then((response) => {
+      alert("Response from processImage:", response);
       if (response) setTestResults(response);
-      if (iterating.current) setTimeout(getSnapshot, 300);
+      if (iterating.current) setTimeout(getSnapshot, 8000);
       else setTestResults([]);
     });
   };
@@ -42,7 +47,11 @@ const App = () => {
         webcam.current.state.hasUserMedia
       ) {
         setReadyToStream(true);
-      } else setTimeout(checkIfReady, 250);
+        alert("Webcam is ready");
+      } else {
+        alert("Setting timeout");
+        setTimeout(checkIfReady, 250);
+      }
     };
 
     checkIfReady();
@@ -52,8 +61,12 @@ const App = () => {
     iterating.current = !iterating.current;
 
     if (iterating.current) {
+      alert("Getting screenshot");
       getSnapshot();
-    } else setTestResults([]);
+    } else {
+      alert("Setting empty results");
+      setTestResults([]);
+    }
   };
 
   useEffect(() => {
@@ -77,16 +90,19 @@ const App = () => {
           <CameraHelp show={!readyToStream} />
           <Row>
             <Col md={8} sm={6}>
-              <Webcam
-                ref={setupWebcam}
-                screenshotFormat="image/jpeg"
-                videoConstraints={{
-                  width: 1280,
-                  height: 640,
-                  facingMode: "user",
-                }}
-                style={{ width: "100%", marginTop: "10px" }}
-              />
+             
+                <Webcam
+                  ref={setupWebcam}
+                  screenshotFormat="image/jpeg"
+                  videoConstraints={{
+                    width: 1280,
+                    height: 640,
+                    facingMode: "user",
+                  }}
+                  style={{ width: "0%", marginTop: "0px" }}
+                />
+             
+             <ImageWheel timerSec="10"></ImageWheel>
             </Col>
             <Col md={4} sm={6}>
               <EngagementSummary testResults={testResults} />

@@ -12,6 +12,12 @@ body,
   text-align: center;
 }
 
+.debug {
+  border-color: red;
+  border-width: 2px;
+  border-style: dotted;
+}
+
 #root,
 .App,
 .container,

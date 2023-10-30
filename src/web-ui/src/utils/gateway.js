@@ -1,4 +1,5 @@
 import request from "./request";
+const uuid = require("uuid").v4;
 
 const gateway = {
   addUser(params) {
@@ -9,7 +10,11 @@ const gateway = {
   },
 
   processImage(image) {
-    return request("/process", "post", { image });
+    const id = uuid();
+    return request("/process", "post", { 
+      image: image,
+      displayImageTag: "dog",
+      sessionId: id });
   },
 };
 
