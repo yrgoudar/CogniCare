@@ -1,123 +1,50 @@
-## Virtual Proctor using Amazon Rekognition
+## CogniCare
 
-Proctoring is the act of supervising an exam or course online.
+  Our innovative app leverages various industry-standard, highly efficient services powered by AWS to track subtle changes in emotions over time and generate trends in levels of emotional intensity for different emotional categories, serving as a pivotal resource for medical professionals for potentially identifying preclinical symptoms and early detection of Alzheimer’s disease. 
+  
+  The motivation for the methodology behind the app stems from previous research conducted by the Center for Alzheimer’s Disease and the National Council for Scientific and Technological Development, which has suggested a possible link between negative emotions and the onset of developing Alzheimer’s. Emotion processing impairments are harder to detect for people experiencing mild stages of Alzheimer’s, but various studies—such as neuroimaging studies—have shown that deficits in emotional processing can be a strong clinical symptom as a feature of early stages of neurodegenerative disorders such as Alzheimer’s. Our app is especially important because PET and CT scans that measure brain damage are extremely expensive and will likely only inform the patient once their brain has significant and notable brain damage. However, for our target users, this will not be an efficient and cost-effective method, and our app will provide targeted suggestions of the possibility of the disease developing in the comfort of their homes. 
+  
+  While using the app each month, the user uploads images, which will be categorized by machine learning models. Then, they’ll be presented with a series of these images, and their respective emotional responses will be tracked. Over time, the user takes more of these tests, and the app will generate trends in overall emotion fluctuations. Combining all the data, it’ll make a logical prediction that a person may develop Alzheimer’s if they demonstrate more tendency toward negative emotions in later detections.  Predictions are based on conclusive evidence and the confidence levels of certain types of emotions, and they'll be compared/analyzed relative to their initial state.If a patient wishes to consult his/her doctor on potential future implications based on the data collected and his/her situation, doctors can flexibly work with them to create action plans to prevent further spread and development.
+  
+  The app can be used anywhere and will be free of cost, with the primary motivation focused on providing quick and accessible solutions to people globally. We hope to broaden the scope of the app to include additional neurodegenerative diseases that relate to emotional dysregulation, such as dementia, to extend the impact of our app to a larger target population.
+  
 
-Using web-based applications, virtual proctoring platforms allow test takers to be virtually monitored by a human via the webcam on their computer.
-To increase the scale of the test taking and improve a human proctor’s ability to monitor students, virtual proctoring services are now implementing AI/ML to support the human proctor.
+### Inspiration
 
-Virtual Proctor is a solution that leverages Amazon Rekognition to show a scalable way to conduct online testing.
+  As a whole, our group each had a teammate who was affected by Alzheimer’s in one way or another. Whether it be a grandfather suffering to remember his children’s names or a mother struggling to remember her birthday, Alzheimer’s is a very serious condition that has affected each of our lives. 
+  
+  In the US alone, 6.7 million Americans 65 years and older are living with Alzheimer’s, one of them being our very own teammate’s grandfather. Many struggle with simple tasks such as remembering their name or brushing their teeth; they are slowly losing themselves and their life through this degenerative disease.  After witnessing the intense effects and issues of this problem, we all decided that we could not be stagnant and wait for change as everyone deserves to remember their lives. 
+  
+  Therefore, we decided to tackle a specific concern regarding Alzheimer’s: the diagnosis. Alzheimer’s currently does not have a cure, but there are treatments that alleviate the intensity of the disease. However, for those diagnosed with Alzheimer’s, the majority are diagnosed during stage 4 of Alzheimer’s: More Than Memory Loss. This is the 4th stage of the 7 stages of Alzheimer’s, according to Penn Medicine, and is considered relatively far into the Alzheimer’s journey as patients are now having difficulties with language, organization, and calculation. Because of this, treatments that are effective in treating Alzheimer’s are not as relieving as they could be due to the delay in detection. This number is not expected to decrease anytime soon with the extensive measures required to detect Alzheimer’s. The multiple PTE Scans, blood tests, depression screens, and more are all time-consuming and ineffective as the detection of the disease occurs far beyond its initial stage. Not to add, the amount of money required to have the testing done is significant and is, therefore, not accessible to everyone. Overall, the diagnosis of Alzheimer’s is currently lacking in many aspects, specifically efficiency and accessibility and we wanted to address these setbacks.
+  
+  And so to help people detect accurate early signs of Alzheimer’s from the comfort of their homes with zero cost, we created an app that contributes to the progression of an Alzheimer’s 's-free world. With our actions, we were able to make a product that everyone and anyone could access to better their well-being and reduce the chance of other people’s loved ones developing Alzheimer's. 
+  
 
-It shows how you can implement rules such as:
+### Technical Difficulties
 
-- Detecting objects of interest (such as mobile phone)
-- Detecting the number of people present
-- Recognizing the person who is taking a test
-- Detecting unsafe content (such as explicit adult content or violent content)
+  One of the biggest technical difficulties we faced was ensuring that our app could be a viable product with high rates of success and low rates of failure while detecting facial expressions. At first, we attempted to create our own custom machine learning (ML) models and Convolutional Neural Networks (CNNs) to detect and classify facial emotions. However, we plateaued at around 75% accuracy. We believed this cap to be insufficient, especially for an app that has considerable real-life implications like ours. Therefore, to ensure the maximum accuracy and effectiveness for our users, we decided to employ AWS’s Rekognition service. We modified our code to instead make API calls to the Rekognition service, achieving an accuracy of 99% on emotion detection at a nominal cost. 
+  
+  In addition, we prioritized high security and efficiency when executing the various components of our app. One of the main areas was storing our data since our app deals with highly sensitive data such as personal photos and faces. Therefore, we also decided to use AWS’s DynamoDB to store our information. We also decided to shift to other AWS services with the goal of optimizing our application for rapid and seamless deployment. This transition included the adoption of AWS Lambda to expedite the execution of our functions and computations with an eye toward minimizing cost, as well as the incorporation of AWS Cognito to streamline login security management, and AWS API Gateway to facilitate the orchestration of API calls. The utilization of a suite of AWS services allowed us to easily tackle our technical difficulties while delivering an efficient, ready-to-utilize, and cost-effective product. 
 
-You can also use [Amazon Rekognition Custom Labels](https://aws.amazon.com/rekognition/custom-labels-features/) to detect other custom objects of interest.
 
-### Index
+### Improvements
 
-- [Architecture](#architecture)
-- [Usage](#usage)
-  - [Prerequisites](#prerequisites)
-  - [Deployment](#deployment)
-  - [Accessing the application](#accessing-the-application)
-- [Remove the application](#remove-the-application)
-- [Making changes to the code and customization](#making-changes-to-the-code-and-customization)
-- [Samples](#samples)
-- [Contributing](#contributing)
+  In the envisioned 2.0 iteration of our application, an improvement would be the refinement of the post-session reports to optimize user-friendliness. Currently, our reporting mechanism is limited to graphical representations, which may at times pose challenges in terms of comprehensibility and effective communication of time-sensitive information. Therefore, we look towards the integration of a Large Language Model (LLM) or generative AI to generate text-based reports following each session, providing users with a more accessible means of interpreting the results.
+  
+  This text-based report will improve our app on many levels. Firstly, it will provide users with an assessment of whether there are discernible indications of Alzheimer's disease development. Secondly, it will provide recommendations on when it may be advisable for them to seek medical consultation. This improvement will provide users with valuable insights into their cognitive health, potentially prompting timely intervention in cases of concern.
+  
+  To obtain this improvement, several strategies must be considered. One strategy involves the development of a customely trained Large Language Model (LLM) for our specific purpose. Alternatively, we may utilize OpenAI's API to harness the capabilities of established models for generating text-based reports. Additionally, the utilization of AWS's Bedrock, with its suite of advanced machine-learning tools, stands as another viable option to explore. Each of these strategies merits thorough consideration, with a careful evaluation of factors such as model performance, scalability, and computational resource requirements to inform the ultimate selection of the most suitable approach.
+  
+  This 2.0 version not only promises to improve the user’s experience but also demonstrates our commitment to leveraging cutting-edge AI technologies to deliver an innovative solution that tackles the problem of Alzheimer’s. 
 
-### Architecture
+#### Tech Stack
 
-<p align="center">
-  <img src="docs/diagram.png" alt="Architecture Diagram" />
-</p>
-
-### Usage
-
-#### Prerequisites
-
-To deploy the sample application, you will require an AWS account. If you don’t already have an AWS account, create one at <https://aws.amazon.com> by following the on-screen instructions. Your access to the AWS account must have IAM permissions to launch AWS CloudFormation templates that create IAM roles.
-
-To use the sample application you will require a [modern browser](https://caniuse.com/#feat=stream) and a webcam.
-
-#### Deployment
-
-The demo application is deployed as an [AWS CloudFormation](https://aws.amazon.com/cloudformation) template.
-
-> **Note**  
-> You are responsible for the cost of the AWS services used while running this sample deployment. There is no additional cost for using this sample. For full details, see the following pricing pages for each AWS service you will be using in this sample. Prices are subject to change.
->
-> - [Amazon Rekognition Pricing](https://aws.amazon.com/rekognition/pricing/)
-> - [Amazon S3 Pricing](https://aws.amazon.com/s3/pricing/)
-> - [Amazon Cognito Pricing](https://aws.amazon.com/cognito/pricing/)
-> - [Amazon CloudFront Pricing](https://aws.amazon.com/cloudfront/pricing/)
-
-1. Deploy the latest CloudFormation template by following the link below for your preferred AWS region:
-
-| Region                                        | Launch Template                                                                                                                                                                                                                                                                                                                              |
-| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **US East (N. Virginia)** (us-east-1)         | [![Launch the VirtualProctor Stack with CloudFormation](docs/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=VirtualProctor&templateURL=https://solution-builders-us-east-1.s3.us-east-1.amazonaws.com/amazon-rekognition-virtual-proctor/latest/template.yaml)                |
-| **US East (Ohio)** (us-east-2)                | [![Launch the VirtualProctor Stack with CloudFormation](docs/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/new?stackName=VirtualProctor&templateURL=https://solution-builders-us-east-2.s3.us-east-2.amazonaws.com/amazon-rekognition-virtual-proctor/latest/template.yaml)                |
-| **US West (Oregon)** (us-west-2)              | [![Launch the VirtualProctor Stack with CloudFormation](docs/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=us-west-2#/stacks/new?stackName=VirtualProctor&templateURL=https://solution-builders-us-west-2.s3.us-west-2.amazonaws.com/amazon-rekognition-virtual-proctor/latest/template.yaml)                |
-| **EU (Ireland)** (eu-west-1)                  | [![Launch the VirtualProctor Stack with CloudFormation](docs/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=eu-west-1#/stacks/new?stackName=VirtualProctor&templateURL=https://solution-builders-eu-west-1.s3.eu-west-1.amazonaws.com/amazon-rekognition-virtual-proctor/latest/template.yaml)                |
-| **Asia Pacific (Sydney)** (ap-southeast-2)    | [![Launch the VirtualProctor Stack with CloudFormation](docs/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-2#/stacks/new?stackName=VirtualProctor&templateURL=https://solution-builders-ap-southeast-2.s3.ap-southeast-2.amazonaws.com/amazon-rekognition-virtual-proctor/latest/template.yaml) |
-| **Asia Pacific (Singapore)** (ap-southeast-1) | [![Launch the VirtualProctor Stack with CloudFormation](docs/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=ap-southeast-1#/stacks/new?stackName=VirtualProctor&templateURL=https://solution-builders-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/amazon-rekognition-virtual-proctor/latest/template.yaml) |
-| **Asia Pacific (Mumbai)** (ap-south-1)        | [![Launch the VirtualProctor Stack with CloudFormation](docs/deploy-to-aws.png)](https://console.aws.amazon.com/cloudformation/home?region=ap-south-1#/stacks/new?stackName=VirtualProctor&templateURL=https://solution-builders-ap-south-1.s3.ap-south-1.amazonaws.com/amazon-rekognition-virtual-proctor/latest/template.yaml)             |
-
-2. If prompted, login using your AWS account credentials.
-3. You should see a screen titled "_Create Stack_" at the "_Specify template_" step. The fields specifying the CloudFormation template are pre-populated. Click the _Next_ button at the bottom of the page.
-4. On the "_Specify stack details_" screen you may customize the following parameters of the CloudFormation stack:
-
-   - **Stack Name:** (Default: VirtualProctor) This is the name that is used to refer to this stack in CloudFormation once deployed.
-   - **AdminEmail:** The email address you wish to setup as the initial user of this Amazon Rekognition Virtual Proctor deployment.
-   - **MinConfidence:** (Default: 85) Specifies the minimum confidence level for the labels to return.
-   - **ObjectsOfInterestLabels** (Default "Mobile Phone,Cell Phone"): Comma-delimited list of labels used to detect Objects of interest.
-   - **CreateCloudFrontDistribution** (Default: true) Creates a CloudFront distribution for accessing the web interface of the solution.
-   - **ResourcePrefix:** (Default: VirtualProctor) Resource prefix to apply to resource names when creating statically named resources.
-
-   When completed, click _Next_
-
-5. [Configure stack options](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-console-add-tags.html) if desired, then click _Next_.
-6. On the review you screen, you must check the boxes for:
-
-   - "_I acknowledge that AWS CloudFormation might create IAM resources_"
-   - "_I acknowledge that AWS CloudFormation might require the following capability: CAPABILITY_AUTO_EXPAND_"
-
-   These are required to allow CloudFormation to create a Role to allow access to resources needed by the stack and name the resources in a dynamic way.
-
-7. Click _Create Change Set_
-8. On the _Change Set_ screen, click _Execute_ to launch your stack.
-   - You may need to wait for the _Execution status_ of the change set to become "_AVAILABLE_" before the "_Execute_" button becomes available.
-9. Wait for the CloudFormation stack to launch. Completion is indicated when the "Stack status" is "_CREATE_COMPLETE_".
-   - You can monitor the stack creation progress in the "Events" tab.
-10. Note the _url_ displayed in the _Outputs_ tab for the stack. This is used to access the application.
-
-#### Accessing the Application
-
-The application is accessed using a web browser. The address is the _url_ output from the CloudFormation stack created during the Deployment steps.
-
-When accessing the application for the first time, you need to use the Admin e-mail provided during Stack Creation as the username. A temporary password will be sent to the same e-mail address. After authentication, it will be necessary to create a new password and click "Change".
-
-To manage users, you can use the [Cognito Users Pool console](https://console.aws.amazon.com/cognito/users).
-
-### Remove the application
-
-To remove the application open the AWS CloudFormation Console, click the Virtual Proctor project, right-click and select "_Delete Stack_". Your stack will take some time to be deleted. You can track its progress in the "Events" tab. When it is done, the status will change from "_DELETE_IN_PROGRESS_" to "_DELETE_COMPLETE_". It will then disappear from the list.
-
-### Making changes to the code and customization
-
-The [contributing guidelines](CONTRIBUTING.md) contains some instructions about how to run the front-end locally and make changes to the back-end stack.
-
-### Samples
-
-[Python Samples](./python-samples) contains python snippets for virtual proctoring usecases
-
-## Contributing
-
-Contributions are more than welcome. Please read the [code of conduct](CODE_OF_CONDUCT.md) and the [contributing guidelines](CONTRIBUTING.md).
-
-## License Summary
-
-This library is licensed under the MIT-0 License. See the LICENSE file.
+-JavaScript<br>
+-HTML<br>
+-CSS<br>
+-React<br>
+-AWS Rekognition<br>
+-AWS Lambda<br>
+-AWS DynamoDB<br>
+-AWS API Gateway<br>
+-AWS Cognito<br>
